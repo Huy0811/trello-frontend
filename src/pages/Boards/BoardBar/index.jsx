@@ -54,7 +54,18 @@ function BoardBar() {
         </Button>
         <AvatarGroup
           max={7}
-          sx={{ gap: "10px", "& .MuiAvatar-root": { width: "30px", height: "30px", fontSize: "16px", border: "none" } }}
+          sx={{
+            gap: "10px",
+            "& .MuiAvatar-root": {
+              width: "30px",
+              height: "30px",
+              fontSize: "16px",
+              border: "none",
+              color: "#ffffff",
+              cursor: "pointer",
+              "&:first-of-type": { bgcolor: "#a4b0be" }
+            }
+          }}
         >
           <Tooltip title="Huy">
             <Avatar alt="Huy" src="https://bxp-content-static.prod.public.atl-paas.net/img/favicon.ico" />
