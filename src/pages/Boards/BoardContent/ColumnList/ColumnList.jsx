@@ -3,7 +3,7 @@ import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Column from "./Column/Column"
 
-function ColumnList() {
+function ColumnList({ columns }) {
   return (
     <Box
       sx={{
@@ -16,8 +16,10 @@ function ColumnList() {
         "&::-webkit-scrollbar-track": { m: 2 }
       }}
     >
-      <Column />
-      <Column />
+      {columns?.map((column) => (
+        <Column key={column._id} column={column} />
+      ))}
+
       <Box
         sx={{
           minWidth: "150px",
