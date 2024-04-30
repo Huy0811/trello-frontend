@@ -11,14 +11,16 @@ import CardMedia from "@mui/material/CardMedia"
 import Typography from "@mui/material/Typography"
 
 function Card({ card }) {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: card._id,
     data: { ...card }
   })
   const dndKitCardStyles = {
     // touchAction: "none",
     transform: CSS.Translate.toString(transform),
-    transition
+    transition,
+    opacity: isDragging ? 0.5 : undefined,
+    border: isDragging ? "1px solid #1e90ff" : undefined
   }
 
   const shouldShowCardActions = () => {
