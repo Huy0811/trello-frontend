@@ -1,4 +1,5 @@
 import {
+  closestCorners,
   defaultDropAnimationSideEffects,
   DndContext,
   DragOverlay,
@@ -123,7 +124,13 @@ function BoardContent({ board }) {
   }
 
   return (
-    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
+    <DndContext
+      sensors={sensors}
+      onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
+      onDragEnd={handleDragEnd}
+      collisionDetection={closestCorners}
+    >
       <Box
         sx={{
           width: "100%",
