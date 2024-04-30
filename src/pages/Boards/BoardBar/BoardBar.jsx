@@ -33,7 +33,6 @@ function BoardBar() {
         gap: 2,
         overflowX: "auto",
         paddingX: 2,
-        borderBottom: "1px solid #ffffff",
         bgcolor: (theme) => (theme.palette.mode === "dark" ? "#34495e" : "#1976d2")
       }}
     >
