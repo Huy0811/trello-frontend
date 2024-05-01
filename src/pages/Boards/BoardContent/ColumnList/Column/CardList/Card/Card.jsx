@@ -33,7 +33,12 @@ function Card({ card }) {
       style={dndKitCardStyles}
       {...attributes}
       {...listeners}
-      sx={{ cursor: "pointer", boxShadow: "0px 1px 1px rgba(0, 0, 0, 0.2)", overflow: "unset" }}
+      sx={{
+        cursor: "pointer",
+        boxShadow: "0px 1px 1px rgba(0, 0, 0, 0.2)",
+        overflow: "unset",
+        display: card?.FE_PlaceholderCard ? "none" : "block"
+      }}
     >
       {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover} />}
       <CardContent sx={{ p: 1.5, "&:last-child": { p: 1.5 } }}>

@@ -12,8 +12,9 @@ import {
 } from "@dnd-kit/core"
 import { arrayMove } from "@dnd-kit/sortable"
 import Box from "@mui/material/Box"
-import { cloneDeep } from "lodash"
+import { cloneDeep, isEmpty } from "lodash"
 import { useCallback, useEffect, useRef, useState } from "react"
+import { generatePlaceholderCard } from "~/utils/formatters"
 import { mapOrder } from "~/utils/sorts"
 import Card from "./ColumnList/Column/CardList/Card/Card"
 import Column from "./ColumnList/Column/Column"
@@ -67,6 +68,10 @@ function BoardContent({ board }) {
 
       if (nextActiveColumn) {
         nextActiveColumn.cards = nextActiveColumn.cards.filter((card) => card._id !== activeCardId)
+        if (isEmpty(nextActiveColumn.cards)) {
+          nextActiveColumn.cards = [generatePlaceholderCard(nextActiveColumn)]
+        }
+
         nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map((card) => card._id)
       }
 
@@ -74,6 +79,7 @@ function BoardContent({ board }) {
         nextOverColumn.cards = nextOverColumn.cards.filter((card) => card._id !== activeCardId)
         const newActiveCardData = { ...activeCardData, columnId: nextOverColumn._id }
         nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, newActiveCardData)
+        nextOverColumn.cards = nextOverColumn.cards.filter((card) => !card.FE_PlaceholderCard)
         nextOverColumn.cardOrderIds = nextOverColumn.cards.map((card) => card._id)
       }
 
