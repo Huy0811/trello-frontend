@@ -1,5 +1,4 @@
 import {
-  closestCenter,
   closestCorners,
   defaultDropAnimationSideEffects,
   DndContext,
@@ -7,7 +6,6 @@ import {
   getFirstCollision,
   MouseSensor,
   pointerWithin,
-  rectIntersection,
   TouchSensor,
   useSensor,
   useSensors
@@ -192,14 +190,16 @@ function BoardContent({ board }) {
       }
 
       const pointerIntersections = pointerWithin(args)
-      const intersections = !!pointerIntersections?.length ? pointerIntersections : rectIntersection(args)
-      let overId = getFirstCollision(intersections, "id")
+
+      if (!pointerIntersections?.length) return
+
+      let overId = getFirstCollision(pointerIntersections, "id")
 
       if (overId) {
         const checkColumn = orderedColumns.find((column) => column._id === overId)
 
         if (checkColumn) {
-          overId = closestCenter({
+          overId = closestCorners({
             ...args,
             droppableContainers: args.droppableContainers.filter(
               (container) => container.id !== overId && checkColumn?.cardOrderIds?.includes(container.id)
