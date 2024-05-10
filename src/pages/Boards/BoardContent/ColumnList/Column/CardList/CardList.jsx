@@ -10,7 +10,7 @@ function CardList({ cards }) {
           display: "flex",
           flexDirection: "column",
           gap: 1,
-          p: "0px 5px",
+          p: "0px 5px 5px 5px",
           m: "0px 5px",
           overflowX: "hidden",
           overflowY: "auto",
