@@ -162,7 +162,7 @@ function Column({ column }) {
               </Tooltip>
             </Box>
           ) : (
-            <Box sx={{ height: "100%", display: "flex", alignItems: "center", gap: 1 }}>
+            <Box sx={{ height: "100%", display: "flex", alignItems: "center", gap: 1 }} data-no-dnd="true">
               <TextField
                 label="Enter card title"
                 type="text"

@@ -4,9 +4,7 @@ import {
   DndContext,
   DragOverlay,
   getFirstCollision,
-  MouseSensor,
   pointerWithin,
-  TouchSensor,
   useSensor,
   useSensors
 } from "@dnd-kit/core"
@@ -14,6 +12,7 @@ import { arrayMove } from "@dnd-kit/sortable"
 import Box from "@mui/material/Box"
 import { cloneDeep, isEmpty } from "lodash"
 import { useCallback, useEffect, useRef, useState } from "react"
+import { MouseSensor, TouchSensor } from "~/customLibraries/DndKitSensors"
 import { generatePlaceholderCard } from "~/utils/formatters"
 import { mapOrder } from "~/utils/sorts"
 import Card from "./ColumnList/Column/CardList/Card/Card"
