@@ -8,17 +8,23 @@ import { useState } from "react"
 import { toast } from "react-toastify"
 import Column from "./Column/Column"
 
-function ColumnList({ columns }) {
+function ColumnList({ columns, createNewColumn, createNewCard }) {
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
   const [newColumnTitle, setNewColumnTitle] = useState("")
 
   const toggleOpenNewColumnForm = () => setOpenNewColumnForm(!openNewColumnForm)
 
-  const addNewColumn = () => {
+  const addNewColumn = async () => {
     if (!newColumnTitle) {
       toast.error("Please enter column title !")
       return
     }
+
+    const newColumnData = {
+      title: newColumnTitle
+    }
+
+    await createNewColumn(newColumnData)
 
     toggleOpenNewColumnForm()
     setNewColumnTitle("")
@@ -38,7 +44,7 @@ function ColumnList({ columns }) {
         }}
       >
         {columns?.map((column) => (
-          <Column key={column._id} column={column} />
+          <Column key={column._id} column={column} createNewCard={createNewCard} />
         ))}
         {!openNewColumnForm ? (
           <Box
