@@ -1,11 +1,11 @@
 import Container from "@mui/material/Container"
+import { isEmpty } from "lodash"
 import { useEffect, useState } from "react"
-import { createNewCardAPI, createNewColumnAPI, fetchBoardDetailsAPI } from "~/apis"
+import { createNewCardAPI, createNewColumnAPI, fetchBoardDetailsAPI, updateBoardDetailsAPI } from "~/apis"
 import AppBar from "~/components/AppBar/AppBar"
+import { generatePlaceholderCard } from "~/utils/formatters"
 import BoardBar from "./BoardBar/BoardBar"
 import BoardContent from "./BoardContent/BoardContent"
-import { isEmpty } from "lodash"
-import { generatePlaceholderCard } from "~/utils/formatters"
 
 function Board() {
   const [board, setBoard] = useState(null)
@@ -48,11 +48,26 @@ function Board() {
     setBoard(newBoard)
   }
 
+  const moveColumns = async (dndOrderedColumns) => {
+    const dndOrderedColumnsIds = dndOrderedColumns.map((column) => column._id)
+    const newBoard = { ...board }
+    newBoard.columns = dndOrderedColumns
+    newBoard.columnOrderIds = dndOrderedColumnsIds
+    setBoard(newBoard)
+
+    await updateBoardDetailsAPI(newBoard._id, { columnOrderIds: dndOrderedColumnsIds })
+  }
+
   return (
     <Container disableGutters maxWidth={false} sx={{ height: "100vh" }}>
       <AppBar />
       <BoardBar board={board} />
-      <BoardContent board={board} createNewColumn={createNewColumn} createNewCard={createNewCard} />
+      <BoardContent
+        board={board}
+        createNewColumn={createNewColumn}
+        createNewCard={createNewCard}
+        moveColumns={moveColumns}
+      />
     </Container>
   )
 }
